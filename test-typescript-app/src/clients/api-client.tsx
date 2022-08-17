@@ -11,15 +11,37 @@ class ApiClient {
             // body: JSON.stringify(OBJECT)
         }
         const result = await fetch(url, httpOptions);
+        let error = new Error();
         switch(result.status) {
             case 200: 
                 return result.json();
             case 400: 
-                throw 'bad request to backend'
-            case 404: 
-                throw 'Not found'
-            case 500: 
-                throw 'Server crashed from my input - backend fault'
+                let responseError = {
+                    type: 'Error',
+                    message: 'bad request to backend',
+                    data: '',
+                    code: `${result.status}`,
+                };
+                error = {...error, ...responseError};
+                throw error;
+            case 404:
+                responseError = {
+                    type: 'Error',
+                    message: 'Not found',
+                    data: '',
+                    code: `${result.status}`,
+                };
+                error = {...error, ...responseError};
+                throw error;
+            case 500:
+                responseError = {
+                    type: 'Error',
+                    message: 'Server crashed from my input - backend fault',
+                    data: '',
+                    code: `${result.status}`,
+                };
+                error = {...error, ...responseError};
+                throw error;
             default:
                 throw result;
         }

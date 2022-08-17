@@ -1,0 +1,5 @@
+Q: How do you deep clone an Object?
+Q: String prototype Method?
+Q: Curry function implementation?
+Q: Parallel Async functions handling
+Q: How do you show 3 boxes side-by-side, filling the width of the page?
